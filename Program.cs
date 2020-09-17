@@ -55,14 +55,9 @@ namespace openapi_sample_client
             await client.DeleteFromJsonAsync($"{_categoryUrl}?key={addedCategory.Id}");
             $"Delete category with id {addedCategory.Id}".Print();
             //--------Products------
-            //insert
-            var productDto = new ProductDto()
-            {
-                Name = "Sample product name"
-            };
-
-            var addedProduct = await client.GetFromJsonAsync<ODataWrapper<List<ProductDto>>>(_productUrl);
-            $"Fetch {addedProduct.Value.Count} products".Print();
+            
+            var products = await client.GetFromJsonAsync<ODataWrapper<List<ProductDto>>>(_productUrl);
+            $"Fetch {products.Value.Count} products".Print();
             var product = addedProduct.Value.FirstOrDefault();
             var cat = allCategories.Value.FirstOrDefault();
             var productCategory=new ProductCategoryDto()
